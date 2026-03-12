@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +26,8 @@ public class Comment {
 	private Post post;
 
 	private String commentText;
+	
+	@OneToMany(mappedBy = "comment_id")
 	private Set<Like> likes = new HashSet<>();
 	
 	public Comment() {
@@ -37,8 +40,6 @@ public class Comment {
 		this.commentText = commentText;
 		this.likes = likes;
 	}
-
-
 
 	public Long getId() {
 		return id;

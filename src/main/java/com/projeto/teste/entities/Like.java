@@ -22,6 +22,8 @@ public class Like {
 	@JoinColumn(name = "post_id")
 	private Post post;
 	
+	
+	
 	public Like() {
 		
 	}
