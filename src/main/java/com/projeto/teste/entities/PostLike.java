@@ -1,8 +1,6 @@
 package com.projeto.teste.entities;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +8,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_comments")
-public class Comment {
+@Table(name = "tb_postLikes")
+public class PostLike {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +21,16 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "post_id")
 	private Post post;
-
-	private String commentText;
 	
-	@OneToMany(mappedBy = "comment")
-	private Set<CommentLike> commentLikes = new HashSet<>();
 	
-	public Comment() {
+	
+	public PostLike() {
 		
 	}
 
-	public Comment(Long id, String commentText ) {
+	public PostLike(Long id) {
+		super();
 		this.id = id;
-		this.commentText = commentText;
 	}
 
 	public Long getId() {
@@ -45,14 +39,6 @@ public class Comment {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getCommentText() {
-		return commentText;
-	}
-
-	public void setCommentText(String commentText) {
-		this.commentText = commentText;
 	}
 
 	@Override
@@ -68,9 +54,11 @@ public class Comment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Comment other = (Comment) obj;
+		PostLike other = (PostLike) obj;
 		return Objects.equals(id, other.id);
 	}
 	
 	
+
+
 }

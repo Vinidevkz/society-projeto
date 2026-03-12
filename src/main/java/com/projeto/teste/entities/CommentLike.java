@@ -11,24 +11,22 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_likes")
-public class Like {
+@Table(name = "tb_commentLikes")
+public class CommentLike {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "post_id")
-	private Post post;
+	@JoinColumn(name = "comment_id")
+	private Comment comment;
 	
-	
-	
-	public Like() {
+	public CommentLike() {
 		
 	}
 
-	public Like(Long id) {
+	public CommentLike(Long id) {
 		super();
 		this.id = id;
 	}
@@ -54,7 +52,7 @@ public class Like {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Like other = (Like) obj;
+		CommentLike other = (CommentLike) obj;
 		return Objects.equals(id, other.id);
 	}
 	
