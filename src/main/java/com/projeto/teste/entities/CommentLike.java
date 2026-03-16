@@ -26,14 +26,19 @@ public class CommentLike {
 	@JsonBackReference
 	private Comment comment;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user_id;
+	
 	public CommentLike() {
 		
 	}
-
-	public CommentLike(Long id, Comment comment) {
+	
+	public CommentLike(Long id, Comment comment, User user) {
 		super();
 		this.id = id;
 		this.comment = comment;
+		this.user_id = user;
 	}
 
 	public Long getId() {
@@ -42,6 +47,14 @@ public class CommentLike {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public Long getUser_id() {
+		return this.user_id.getId();
 	}
 
 	@Override

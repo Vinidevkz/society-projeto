@@ -74,6 +74,14 @@ public class Post {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public Long getUser_id() {
+		return user.getId();
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public int hashCode() {

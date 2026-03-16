@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,13 +23,12 @@ public class User {
 	private String name;
 	private String description;
 	private String email;
+	
+	@JsonIgnore
 	private String password;
 
 	@OneToMany(mappedBy = "user")
 	private Set<Post> posts = new HashSet<>();
-	
-	@OneToMany(mappedBy = "user")
-	private Set<Comment> comments = new HashSet<>();
 	
 	public User() {
 		
