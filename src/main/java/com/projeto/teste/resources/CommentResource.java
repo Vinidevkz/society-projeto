@@ -15,37 +15,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.projeto.teste.entities.User;
-import com.projeto.teste.services.UserService;
+import com.projeto.teste.entities.Comment;
+import com.projeto.teste.services.CommentService;
 import com.projeto.teste.services.exceptions.ResourceNotFoundException;
 
 @RestController
-@RequestMapping(value = "/user")
-public class UserResource {
+@RequestMapping(value = "/comment")
+public class CommentResource {
 
 	@Autowired
-	private UserService userService;
+	private CommentService commentService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		List<User> users = userService.findAll();
-		return ResponseEntity.ok().body(users);
+	public ResponseEntity<List<Comment>> findAll(){
+		List<Comment> comments = commentService.findAll();
+		return ResponseEntity.ok().body(comments);
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
+	public ResponseEntity<Comment> findById(@PathVariable Long id){
 
-			User user = userService.findById(id);
-			return ResponseEntity.ok().body(user);
+			Comment comment = commentService.findById(id);
+			return ResponseEntity.ok().body(comment);
 		
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody User user){
-		user = userService.createUser(user);
+	public ResponseEntity<Comment> createComment(@RequestBody Comment comment){
+		comment = commentService.createComment(comment);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(comment.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(user);
+		return ResponseEntity.created(uri).body(comment);
 	}
 }

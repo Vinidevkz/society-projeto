@@ -4,7 +4,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,19 +27,28 @@ public class Comment {
 	
 	@ManyToOne
 	@JoinColumn(name = "post_id")
+	@JsonBackReference
 	private Post post;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	private String commentText;
 	
-	@OneToMany(mappedBy = "comment")
+	@OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<CommentLike> commentLikes = new HashSet<>();
 	
 	public Comment() {
 		
 	}
 
-	public Comment(Long id, String commentText ) {
+	public Comment(Long id, Post post, User user, String commentText) {
+		super();
 		this.id = id;
+		this.post = post;
+		this.user = user;
 		this.commentText = commentText;
 	}
 

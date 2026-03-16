@@ -22,14 +22,17 @@ public class User {
 	private String description;
 	private String email;
 	private String password;
-	
+
 	@OneToMany(mappedBy = "user")
 	private Set<Post> posts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user")
+	private Set<Comment> comments = new HashSet<>();
 	
 	public User() {
 		
 	}
-
+	
 	public User(Long id, String name, String description, String email, String password) {
 		super();
 		this.id = id;
@@ -38,6 +41,8 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -99,10 +104,5 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
-	
 	
 }

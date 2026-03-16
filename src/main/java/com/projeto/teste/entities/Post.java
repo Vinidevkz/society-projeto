@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,22 +30,26 @@ public class Post {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "post")
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
 	private Set<PostLike> postLikes = new HashSet<>();
 	
-	@OneToMany(mappedBy = "post")
+	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<Comment> comments = new HashSet<>();
 	
 	public Post() {
 		
 	}
 
-	public Post(Long id, String title, String description) {
+	public Post(Long id, String title, String description, User user) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.user = user;
 	}
+
+
 
 	public Long getId() {
 		return id;

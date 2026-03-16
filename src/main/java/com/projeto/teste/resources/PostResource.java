@@ -15,37 +15,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.projeto.teste.entities.User;
-import com.projeto.teste.services.UserService;
+import com.projeto.teste.entities.Post;
+import com.projeto.teste.services.PostService;
 import com.projeto.teste.services.exceptions.ResourceNotFoundException;
 
 @RestController
-@RequestMapping(value = "/user")
-public class UserResource {
-
+@RequestMapping(value = "/post")
+public class PostResource {
+	
 	@Autowired
-	private UserService userService;
+	private PostService postService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		List<User> users = userService.findAll();
-		return ResponseEntity.ok().body(users);
+	public ResponseEntity<List<Post>> findAll(){
+		List<Post> posts = postService.findAll();
+		return ResponseEntity.ok().body(posts);
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
-
-			User user = userService.findById(id);
-			return ResponseEntity.ok().body(user);
-		
+	public ResponseEntity<Post> findById(@PathVariable Long id){
+			Post post = postService.findById(id);
+			return ResponseEntity.ok().body(post);
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody User user){
-		user = userService.createUser(user);
+	public ResponseEntity<Post> createPost(@RequestBody Post post){
+		post = postService.createPost(post);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(user);
+		return ResponseEntity.created(uri).body(post);
 	}
 }

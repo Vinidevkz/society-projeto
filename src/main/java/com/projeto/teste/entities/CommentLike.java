@@ -2,6 +2,9 @@ package com.projeto.teste.entities;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,15 +23,17 @@ public class CommentLike {
 	
 	@ManyToOne
 	@JoinColumn(name = "comment_id")
+	@JsonBackReference
 	private Comment comment;
 	
 	public CommentLike() {
 		
 	}
 
-	public CommentLike(Long id) {
+	public CommentLike(Long id, Comment comment) {
 		super();
 		this.id = id;
+		this.comment = comment;
 	}
 
 	public Long getId() {
