@@ -1,9 +1,20 @@
 package com.projeto.teste.dto;
 
 public class PostDTO {
+	private Long id;
 	private String title;
 	private String description;
+	private String imgURL;
 	private Long user_id;
+	
+	
+	
+	public Long getId() {
+		return id;
+	}
+	
+	
+
 	public String getTitle() {
 		return title;
 	}
@@ -20,9 +31,19 @@ public class PostDTO {
 	public Long getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(Long user_id) {
+	public void setUser(Long user_id) {
 		this.user_id = user_id;
 	}
+
+	public String getImgURL() {
+		return imgURL;
+	}
+
+	public void setImgURL(String imgURL) {
+		this.imgURL = imgURL;
+	}
+	
+	
 	
 	
 	

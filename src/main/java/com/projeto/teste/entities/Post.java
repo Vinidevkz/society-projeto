@@ -25,10 +25,11 @@ public class Post {
 	private Long id;
 	private String title;
 	private String description;
+	private String imgURL;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private User user_id;
 	
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
 	private Set<PostLike> postLikes = new HashSet<>();
@@ -46,7 +47,7 @@ public class Post {
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.user = user;
+		this.user_id = user;
 	}
 
 
@@ -75,12 +76,28 @@ public class Post {
 		this.description = description;
 	}
 	
-	public Long getUser_id() {
-		return user.getId();
+	public String getImgURL() {
+		return imgURL;
+	}
+
+	public void setImgURL(String imgURL) {
+		this.imgURL = imgURL;
+	}
+
+	public Set<PostLike> getPostLikes() {
+		return postLikes;
+	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public Long getUser() {
+		return user_id.getId();
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.user_id = user;
 	}
 
 	@Override

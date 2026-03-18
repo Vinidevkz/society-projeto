@@ -11,6 +11,8 @@ import com.projeto.teste.entities.Post;
 import com.projeto.teste.repository.PostRepository;
 import com.projeto.teste.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class PostService {
 
@@ -21,16 +23,31 @@ public class PostService {
 		return postRepository.save(post);
 	}
 	
+	public Post updatePost(Long id, Post entryPost) {
+		Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		updateData(post, entryPost);
+		return postRepository.save(post);
+	}
+	
 	public void deletePost(Long id) {
 		
 	}
-	 @EntityGraph(attributePaths = {"comments", "comments.commentLikes"})
-	public List<Post> findAll(){
-		return postRepository.findAll();
-	}
 	
+
 	public Post findById(Long id) {
 		Optional<Post> post = postRepository.findById(id);
 	    return post.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	@EntityGraph(attributePaths = {"comments", "comments.commentLikes"})
+	public List<Post> findAll(){
+		return postRepository.findAll();
+	}
+	
+	////
+	 public void updateData(Post existingPost, Post newPost) {
+		 existingPost.setTitle(newPost.getTitle());
+		 existingPost.setDescription(newPost.getDescription());
+		 existingPost.setImgURL(newPost.getImgURL());
+	 }
 }
