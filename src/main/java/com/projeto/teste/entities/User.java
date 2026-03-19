@@ -27,7 +27,7 @@ public class User {
 	@JsonIgnore
 	private String password;
 
-	@OneToMany(mappedBy = "user_id")
+	@OneToMany(mappedBy = "user")
 	private Set<Post> posts = new HashSet<>();
 	
 	public User() {

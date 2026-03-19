@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,9 +61,22 @@ public class PostResource {
 	@PutMapping("/{id}")
 	public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody PostDTO postDTO){
 		User user = userService.findById(postDTO.getUser_id());
-		Post post = new Post(null, postDTO.getTitle(), postDTO.getDescription(), user);
+		Post post = new Post(null, postDTO.getTitle(), postDTO.getDescription(), user, postDTO.getPostType());
 		Post updatedPost = postService.updatePost(id, post);
 		return ResponseEntity.ok(updatedPost);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deletePost(@PathVariable Long id){
+		try {
+			Post post = postService.findById(id);
+			postService.deletePost(post);
+			
+			return ResponseEntity.ok("Post deletado com sucesso.");
+		}catch (ResourceNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+
 	}
 	
 	@GetMapping

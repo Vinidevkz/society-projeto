@@ -6,7 +6,7 @@ public class PostDTO {
 	private String description;
 	private String imgURL;
 	private Long user_id;
-	
+	private String postType;
 	
 	
 	public Long getId() {
@@ -42,6 +42,20 @@ public class PostDTO {
 	public void setImgURL(String imgURL) {
 		this.imgURL = imgURL;
 	}
+
+
+
+	public String getPostType() {
+		return postType;
+	}
+
+
+
+	public void setPostType(String postType) {
+		this.postType = postType;
+	}
+	
+	
 	
 	
 	

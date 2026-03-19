@@ -6,7 +6,9 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projeto.teste.abstractClasses.Publication;
+import com.projeto.teste.enums.PostTypes;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,21 +25,21 @@ public class Post extends Publication {
 
     private String imgURL;
     
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PostLike> postLikes = new HashSet<>();
     
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<Comment> comments = new HashSet<>();
     
-    
-    
     public Post() {}
 
-    public Post(Long id, String description, String imgURL) {
+    public Post(Long id, String description, String imgURL, User user, String postType) {
         this.setId(id); 
         this.setDescription(description); 
         this.imgURL = imgURL;
+        this.setUser(user);
+        this.setPostType(PostTypes.valueOf(postType.toUpperCase()));
     }
 
     public String getImgURL() {
@@ -48,13 +50,6 @@ public class Post extends Publication {
         this.imgURL = imgURL;
     }
 
-    public Set<PostLike> getPostLikes() {
-        return postLikes;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
 
     @Override
     public int hashCode() {

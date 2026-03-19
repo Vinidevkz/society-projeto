@@ -38,12 +38,13 @@ public class TestConfig implements CommandLineRunner {
 		User user3 = new User(null, "Fabio", "Biografia da Fabio - Estudante da Fatec ZL", "fabio@gmail.com", "fabio123" );	
 		userRepository.saveAll(Arrays.asList(user1, user2, user3));
 		
-		Post post = new Post(null, "Como consegui meu primeiro estágio em TI", "Acesse: www.ciadetalentos.com.br", user1);
-		postRepository.save(post);
+		Post post1 = new Post(null, "Como consegui meu primeiro estágio em TI", "Acesse: www.ciadetalentos.com.br", user1, "post");
+		Post post2 = new Post(null, "Curso gratuito de Java", "Acesse: www.ciadetalentos.com.br", user2, "article");
+		postRepository.saveAll(Arrays.asList(post1, post2));
 		
-		Comment comment1 = new Comment(null, post, user2, "Muito bacana!");
-		Comment comment2 = new Comment(null, post, user2, "Diga mais sobre esse site!");
-		Comment comment3 = new Comment(null, post, user1, "my own commentary :D");
+		Comment comment1 = new Comment(null, post1, user2, "Muito bacana!");
+		Comment comment2 = new Comment(null, post2, user2, "Diga mais sobre esse site!");
+		Comment comment3 = new Comment(null, post1, user1, "my own commentary :D");
 		commentRepository.saveAll(Arrays.asList(comment1, comment2, comment3));
 		
 		CommentLike commLike1 = new CommentLike(null, comment1, user1);

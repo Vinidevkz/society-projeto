@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Comment {
 	
 	private String commentText;
 	
-	@OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<CommentLike> commentLikes = new HashSet<>();
 	
@@ -76,8 +77,8 @@ public class Comment {
 	    this.post = post;
 	}
 
-	public User getUser() {
-	    return user;
+	public Long getUser() {
+	    return user.getId();
 	}
 
 	public void setUser(User user) {

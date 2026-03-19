@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projeto.teste.entities.Comment;
 import com.projeto.teste.entities.PostLike;
 import com.projeto.teste.entities.User;
+import com.projeto.teste.enums.PostTypes;
 
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,12 +31,8 @@ public abstract class Publication {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "publication", fetch = FetchType.EAGER)
-	private Set<Like> likes = new HashSet<>();
+	private PostTypes postType;
 	
-	@OneToMany(mappedBy = "publication", fetch = FetchType.EAGER)
-	@JsonManagedReference
-	private Set<Comment> comments = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -53,21 +50,23 @@ public abstract class Publication {
 		this.description = description;
 	}
 
-	public Set<Like> getLikes() {
-		return likes;
-	}
-
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
-	public User getUser() {
-		return user;
+	public Long getUser() {
+		return user.getId();
 	}
 
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public PostTypes getPostType() {
+		return postType;
+	}
+
+	public void setPostType(PostTypes postType) {
+		this.postType = postType;
+	}
+	
+	
 	
 	
 	
