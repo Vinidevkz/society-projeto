@@ -30,6 +30,8 @@ public class Post extends Publication {
     @JsonManagedReference
     private Set<Comment> comments = new HashSet<>();
     
+    
+    
     public Post() {}
 
     public Post(Long id, String description, String imgURL) {
