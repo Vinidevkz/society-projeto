@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.projeto.teste.abstractClasses.Publication;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,108 +19,51 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_posts")
-public class Post {
+public class Post extends Publication {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String title;
-	private String description;
-	private String imgURL;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user_id;
-	
-	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
-	private Set<PostLike> postLikes = new HashSet<>();
-	
-	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
-	@JsonManagedReference
-	private Set<Comment> comments = new HashSet<>();
-	
-	public Post() {
-		
-	}
+    private String imgURL;
+    
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    private Set<PostLike> postLikes = new HashSet<>();
+    
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Set<Comment> comments = new HashSet<>();
+    
+    public Post() {}
 
-	public Post(Long id, String title, String description, User user) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.user_id = user;
-	}
+    public Post(Long id, String description, String imgURL) {
+        this.setId(id); 
+        this.setDescription(description); 
+        this.imgURL = imgURL;
+    }
 
+    public String getImgURL() {
+        return imgURL;
+    }
 
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Set<PostLike> getPostLikes() {
+        return postLikes;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Set<Comment> getComments() {
+        return comments;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getImgURL() {
-		return imgURL;
-	}
-
-	public void setImgURL(String imgURL) {
-		this.imgURL = imgURL;
-	}
-
-	public Set<PostLike> getPostLikes() {
-		return postLikes;
-	}
-
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
-	public Long getUser() {
-		return user_id.getId();
-	}
-
-	public void setUser(User user) {
-		this.user_id = user;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Post other = (Post) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-	
-	
-	
-	
-	
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Post other = (Post) obj;
+        return Objects.equals(this.getId(), other.getId());
+    }
 }

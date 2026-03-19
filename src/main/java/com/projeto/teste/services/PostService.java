@@ -46,7 +46,6 @@ public class PostService {
 	
 	////
 	 public void updateData(Post existingPost, Post newPost) {
-		 existingPost.setTitle(newPost.getTitle());
 		 existingPost.setDescription(newPost.getDescription());
 		 existingPost.setImgURL(newPost.getImgURL());
 	 }

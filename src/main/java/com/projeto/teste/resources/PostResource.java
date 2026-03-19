@@ -37,7 +37,6 @@ public class PostResource {
 		try {
 			Post post = new Post();
 			
-			post.setTitle(postDTO.getTitle());
 			post.setDescription(postDTO.getDescription());
 			post.setImgURL(postDTO.getImgURL());
 			
