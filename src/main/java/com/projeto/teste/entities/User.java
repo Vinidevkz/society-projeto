@@ -5,7 +5,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,8 +29,13 @@ public class User {
 	@JsonIgnore
 	private String password;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private Set<Post> posts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private Set<CommentLike> likes = new HashSet<>();
 	
 	public User() {
 		
